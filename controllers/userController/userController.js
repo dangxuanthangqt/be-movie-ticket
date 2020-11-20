@@ -15,7 +15,7 @@ exports.Create_a_user = async (req, res) => {
 };
 
 exports.Upload_user_photo = async (req, res, next) => {
-  const url = `${req.protocol}://${req.get("host")}`;
+  //const url = `${req.protocol}://${req.get("host")}`;
   const { file } = req;
   const userId = req.params.id;
   try {
@@ -26,7 +26,7 @@ exports.Upload_user_photo = async (req, res, next) => {
     }
     const user = await User.findById(userId);
     if (!user) return res.sendStatus(404);
-    user.imageurl = `${url}/${file.path}`;
+    user.imageurl = file.path;
     await user.save();
     return res.send({ user, file });
   } catch (e) {

@@ -11,11 +11,12 @@ const {
 } = require("../controllers/movieController/movieController");
 var router = express.Router();
 var auth = require("../middlewares/auth");
+const uploadCloud = require("../middlewares/cloudinary");
 const upload = require("../middlewares/multer");
 /* create movie */
 router.post("/", auth.enhance, Create_movie);
 //upload image
-router.post("/photo/:id", upload("movies").single("file"), Upload_movie_photo);
+router.post("/photo/:id", uploadCloud("movies").single("file"), Upload_movie_photo);
 //Get all movie
 router.get("/", Get_all_movie);
 //Get movie by id

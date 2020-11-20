@@ -10,7 +10,7 @@ exports.Create_a_cinema = async (req, res, next) => {
 };
 
 exports.Upload_cinema_photo = async (req, res, next) => {
-  const url = `${req.protocol}://${req.get("host")}`;
+  //const url = `${req.protocol}://${req.get("host")}`;
   const { file } = req;
   const movieId = req.params.id;
   try {
@@ -21,7 +21,8 @@ exports.Upload_cinema_photo = async (req, res, next) => {
     }
     const cinema = await Cinema.findById(movieId);
     if (!cinema) return res.sendStatus(404);
-    cinema.image = `${url}/${file.path}`;
+    cinema.image = file.path;
+    //cinema.image = `${url}/${file.path}`;
     await cinema.save();
     res.send({ cinema, file });
   } catch (e) {

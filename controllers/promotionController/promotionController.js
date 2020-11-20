@@ -29,7 +29,7 @@ exports.Delete_promotion_by_id = async (req, res, next) => {
   }
 };
 exports.Upload_promotion_photo = async (req, res, next) => {
-  const url = `${req.protocol}://${req.get("host")}`;
+ // const url = `${req.protocol}://${req.get("host")}`;
   const { file } = req;
   const promotionId = req.params.id;
   try {
@@ -40,7 +40,7 @@ exports.Upload_promotion_photo = async (req, res, next) => {
     }
     const promotion = await Promotion.findById(promotionId);
     if (!promotion) return res.sendStatus(404);
-    promotion.imageurl = `${url}/${file.path}`;
+    promotion.imageurl = file.path;
     await promotion.save();
     return res.send({ promotion, file });
   } catch (e) {

@@ -8,13 +8,14 @@ const {
   Find_promotion,
 } = require("../controllers/promotionController/promotionController");
 const auth = require("../middlewares/auth");
+const uploadCloud = require("../middlewares/cloudinary");
 const upload = require("../middlewares/multer");
 var router = express.Router();
 
 router.post("/", auth.enhance, Create_promotion);
 router.post(
   "/photo/:id",
-  upload("promotions").single("file"),
+  uploadCloud("promotions").single("file"),
   Upload_promotion_photo
 );
 router.get("/", Get_all_promotion);

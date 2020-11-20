@@ -10,6 +10,7 @@ const {
   Find_cinema,
 } = require("../controllers/cinemaController/cinemaController");
 const auth = require("../middlewares/auth");
+const uploadCloud = require("../middlewares/cloudinary");
 
 var router = express.Router();
 const upload = require("../middlewares/multer");
@@ -20,7 +21,7 @@ router.post("/", auth.enhance, Create_a_cinema);
 //Up load photo cinemas
 router.post(
   "/photo/:id",
-  upload("cinemas").single("file"),
+  uploadCloud("cinemas").single("file"),
   Upload_cinema_photo
 );
 //Get_cinema_by_id
@@ -31,7 +32,5 @@ router.patch("/:id", auth.enhance, Update_cinema_by_id);
 router.delete("/:id", auth.enhance, Delete_cinema_by_id);
 //search full
 router.get("/search-full/:q", Search_full_text);
-
-
 
 module.exports = router;

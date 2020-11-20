@@ -13,12 +13,13 @@ const {
 } = require("../controllers/userController/userController");
 const upload = require("../middlewares/multer");
 const auth = require("../middlewares/auth");
+const uploadCloud = require("../middlewares/cloudinary");
 var router = express.Router();
 
 //Register
 router.post("/", Create_a_user);
 //upload photo follow id user
-router.post("/photo/:id", upload("users").single("file"), Upload_user_photo);
+router.post("/photo/:id", uploadCloud("users").single("file"), Upload_user_photo);
 //login
 router.post("/login", Login);
 

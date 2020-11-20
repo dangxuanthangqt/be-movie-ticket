@@ -16,8 +16,9 @@ exports.Create_movie = async (req, res, next) => {
 };
 
 exports.Upload_movie_photo = async (req, res, next) => {
-  const url = `${req.protocol}://${req.get("host")}`;
+  //const url = `${req.protocol}://${req.get("host")}`;
   const { file } = req;
+  console.log(file)
   const movieId = req.params.id;
   try {
     if (!file) {
@@ -27,7 +28,8 @@ exports.Upload_movie_photo = async (req, res, next) => {
     }
     const movie = await Movie.findById(movieId);
     if (!movie) return res.sendStatus(404);
-    movie.image = `${url}/${file.path}`;
+   // movie.image = `${url}/${file.path}`;
+    movie.image = file.path;
     await movie.save();
     res.send({ movie, file });
   } catch (e) {
