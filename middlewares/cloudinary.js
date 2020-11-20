@@ -15,10 +15,14 @@ const storage = (folder) =>
     params: {
       folder: folder,
       format: async (req, file) => "png", // supports promises as well
-      public_id: (req, file) => "computed-filename-using-request",
+      public_id: (req, file) => {
+        const name = file.originalname + new Date();
+        return name;
+      },
     },
   });
-const uploadCloud = (folder) => multer({
-    storage: storage(folder)
-});
+const uploadCloud = (folder) =>
+  multer({
+    storage: storage(folder),
+  });
 module.exports = uploadCloud;
